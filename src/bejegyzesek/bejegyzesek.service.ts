@@ -6,30 +6,31 @@ import { PrismaService } from 'src/prisma.service';
 @Injectable()
 export class BejegyzesekService {
   constructor(private prisma: PrismaService) {}
-  create(createBejegyzesekDto: CreateBejegyzesekDto) {
+  
+  async create(createBejegyzesekDto: CreateBejegyzesekDto) {
     return this.prisma.bejegyzesek.create({ data: createBejegyzesekDto });
   }
 
-  findAll() {
+  async findAll() {
     return this.prisma.bejegyzesek.findMany();
   }
 
-  findOne(id: number) {
+  async findOne(id: number) {
     return this.prisma.bejegyzesek.findUnique({ where: { id } });
   }
 
-  update(id: number, updateBejegyzesekDto: UpdateBejegyzesekDto) {
+  async update(id: number, updateBejegyzesekDto: UpdateBejegyzesekDto) {
     return this.prisma.bejegyzesek.update({
       where: { id },
       data: updateBejegyzesekDto,
     });
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     return this.prisma.bejegyzesek.delete({ where: { id } });
   }
 
-  createBasicData() {
+  async createBasicData() {
     return this.prisma.bejegyzesek.createMany({
       data: [
         {
@@ -51,7 +52,7 @@ export class BejegyzesekService {
     });
   }
 
-  findAllWithUsers() {
+  async findAllWithUsers() {
     return this.prisma.bejegyzesek.findMany({
       include: {
         user: true
@@ -59,4 +60,7 @@ export class BejegyzesekService {
     })
   }
 
+  async removeByUserId(id: number) {
+    return this.prisma.bejegyzesek.deleteMany({where: {userId: id}})
+  }
 }

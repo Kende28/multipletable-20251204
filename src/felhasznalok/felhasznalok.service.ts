@@ -7,27 +7,27 @@ import { PrismaService } from 'src/prisma.service';
 export class FelhasznalokService {
   constructor(private prisma: PrismaService) {}
 
-  create(createFelhasznalokDto: CreateFelhasznalokDto) {
+  async create(createFelhasznalokDto: CreateFelhasznalokDto) {
     return this.prisma.felhasznalok.create({data: createFelhasznalokDto});
   }
 
-  findAll() {
+  async findAll() {
     return this.prisma.felhasznalok.findMany();
   }
 
-  findOne(id: number) {
+  async findOne(id: number) {
     return this.prisma.felhasznalok.findUnique({where: {id}});
   }
 
-  update(id: number, updateFelhasznalokDto: UpdateFelhasznalokDto) {
+  async update(id: number, updateFelhasznalokDto: UpdateFelhasznalokDto) {
     return this.prisma.felhasznalok.update({where: {id}, data: updateFelhasznalokDto});
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     return this.prisma.felhasznalok.delete({where: {id}});
   }
 
-  createBasicData() {
+  async createBasicData() {
     return this.prisma.felhasznalok.createMany({
       data: [
         {
@@ -46,7 +46,7 @@ export class FelhasznalokService {
     })
   }
 
-  findAllWithPosts() {
+  async findAllWithPosts() {
     return this.prisma.felhasznalok.findMany({
       include: {
         blog: true

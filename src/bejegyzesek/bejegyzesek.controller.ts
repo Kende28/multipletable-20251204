@@ -45,6 +45,11 @@ export class BejegyzesekController {
     return this.bejegyzesekService.update(+id, updateBejegyzesekDto);
   }
 
+  @Delete('user/:id') 
+  removeByUserId(@Param('id') id: string) {
+    return this.bejegyzesekService.removeByUserId(+id)
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.bejegyzesekService.remove(+id);

@@ -17,7 +17,7 @@ datasource db {
 
 model Felhasznalok {
   id Int @id @default(autoincrement())
-  email String @unique
+  email String
   nev String
   createdAt DateTime @default(now())
   blog Bejegyzesek[]
@@ -27,7 +27,7 @@ model Bejegyzesek {
   id Int @id @default(autoincrement())
   title String
   content String
-  user Felhasznalok @relation( fields: [userId], references: [id])
+  user Felhasznalok @relation( fields: [userId], references: [id], onDelete: SetNull)
   userId Int
   createdAt DateTime @default(now())
 }
