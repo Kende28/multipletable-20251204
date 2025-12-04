@@ -14,3 +14,20 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Felhasznalok {
+  id Int @id @default(autoincrement())
+  email String @unique
+  nev String
+  createdAt DateTime @default(now())
+  blog Bejegyzesek[]
+}
+
+model Bejegyzesek {
+  id Int @id @default(autoincrement())
+  title String
+  content String
+  user Felhasznalok @relation( fields: [userId], references: [id])
+  userId Int
+  createdAt DateTime @default(now())
+}
